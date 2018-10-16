@@ -171,3 +171,4 @@ void class_test_task(void const *argu)
 		tone(M[0], 0.5);
 	}
 }
+
