@@ -38,14 +38,14 @@ void class_test_task(void const *argu)
 {
 	while(1)
 	{
-		for (int i = 1; i <= 8; i++)    // 由第 1 顆到第 8 顆 LED
+		for (int i = 1; i <= 8; i++)    		// 由第 1 顆到第 8 顆 LED
 		{
 			set_led(i, 1);				// 第 i 顆 LED 亮
-            led_ctrl_data(1, my_led);   // 執行
+            		led_ctrl_data(1, my_led);   		// 執行
 			task_delay(1000);			// 亮 1 秒
             
 			set_led(i, 0);				// 第 i 顆 LED 熄
-            led_ctrl_data(1, led);      // 執行
+            		led_ctrl_data(1, led);      		// 執行
 			task_delay(1000);			// 熄 1 秒
 		}
 	}
