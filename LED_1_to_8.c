@@ -5,32 +5,22 @@ led_ctrl_t my_led;
 
 void set_led(int n, int v)  // n 是第幾顆 LED, v 是 0(熄) 或 1(亮)
 {
-	switch(n)
-	{
-	case 1:
+	if (n == 1) {
 		my_led.led1 = v;
-		break;
-	case 2:
+	} else if (n == 2) {
 		my_led.led2 = v;
-		break;
-	case 3:
+	} else if (n == 3) {
 		my_led.led3 = v;
-		break;
-	case 4:
+	} else if (n == 4) {
 		my_led.led4 = v;
-		break;
-	case 5:
+	} else if (n == 5) {
 		my_led.led5 = v;
-		break;
-	case 6:
+	} else if (n == 6) {
 		my_led.led6 = v;
-		break;
-	case 7:
+	} else if (n == 7) {
 		my_led.led7 = v;
-		break;
-	case 8:
+	} else if (n == 8) {
 		my_led.led8 = v;
-		break;
 	}
 }
 
