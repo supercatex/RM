@@ -35,7 +35,7 @@ void class_test_task(void const *argu)
 			task_delay(1000);			// 亮 1 秒
             
 			set_led(i, 0);				// 第 i 顆 LED 熄
-            		led_ctrl_data(1, led);      		// 執行
+            		led_ctrl_data(1, my_led);      		// 執行
 			task_delay(1000);			// 熄 1 秒
 		}
 	}
