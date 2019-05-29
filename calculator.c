@@ -1,3 +1,30 @@
+/****************************************************************************
+ *  Copyright (C) 2018 RoboMaster.
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of鑱�
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.鑱� See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program. If not, see <http://www.gnu.org/licenses/>.
+ ***************************************************************************/
+
+/**
+  *********************** (C) COPYRIGHT 2018 DJI **********************
+  * @update
+  * @history
+  * Version     Date           Author           Modification
+  * V1.0.0      June-26-2018   ric.luo
+  * @verbatim
+  *********************** (C) COPYRIGHT 2018 DJI **********************
+  */
+
 #include "dev.h"
 #include "tutorial_lib.h"
 
@@ -60,7 +87,7 @@ void class_test_task(void const *argu)
 
 		if (is_pressed == 0 )
 		{
-			if (k1 > 0 || k2 == 7)
+			if (k1 > 0 || k2 == 7)					// Board_1 No.1 ~ 9 & Board_2 No.7 mean 0.
 			{
 				is_pressed = 1;
 				if (op == 0)
@@ -73,12 +100,15 @@ void class_test_task(void const *argu)
 				else if (step == 1)
 					value_2 = value_2 * 10 + k1;
 			}
-			else if (k2 >= 1 && k2 <= 4)
+			else if (k2 >= 1 && k2 <= 4)			// Board_2 No.1 ~ 4 means +, -, *, /
 			{
 				is_pressed = 1;
 				op = k2;
+
+				if (step == 2)
+					value_1 = ans;
 			}
-			else if (k2 == 5)
+			else if (k2 == 5)						// Board_2 No.5 means =
 			{
 				is_pressed = 1;
 				step = 2;
@@ -90,10 +120,12 @@ void class_test_task(void const *argu)
 				else if (op == 3)
 					ans = value_1 * value_2;
 				else if (op == 3)
+				{
 					if (value_2 == 0)
 						ans = 0;
 					else
 						ans = value_1 / value_2;
+				}
 
 				value_1 = 0;
 				value_2 = 0;
@@ -101,6 +133,7 @@ void class_test_task(void const *argu)
 			}
 		}
 
+		// display
 		if (k1 == 0 && k2 == 0)
 			is_pressed = 0;
 
