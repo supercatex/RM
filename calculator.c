@@ -3,7 +3,6 @@
 
 extern key_sensor_t key_val[4];
 
-
 void show_num(uint8_t id, int num)
 {
 	int s = 0;
@@ -121,5 +120,3 @@ void class_test_task(void const *argu)
 		}
 	}
 }
-
-
