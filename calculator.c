@@ -49,77 +49,77 @@ int get_key(key_sensor_t data)
 // 主程序
 void class_test_task(void const *argu)
 {
-	int is_pressed = 0;
-	int value_1 = 0;
-	int value_2 = 0;
-	int op = 0;
-	int ans = 0;
-	int step = 0;	// 0 input value_1, 1 input value_2, 2 show answer.
+	int is_pressed = 0;	// 按下的狀態 (0: 可按下, 1: 按下未放開)
+	int value_1 = 0;	// 第一個數
+	int value_2 = 0;	// 第二個數
+	int op = 0;		// 運算符 ( +: 1, -: 2, *: 3, /: 4 )
+	int ans = 0;		// 結果
+	int step = 0;		// 0 代表正在輸入第一個數, 1 代表正在輸入第二個數, 2 代表顯示結果.
 
 	while (1)
 	{
-		int k1 = get_key(key_val[0]);
-		int k2 = get_key(key_val[1]);
+		int k1 = get_key(key_val[0]);				// 第一個按鍵模塊按下的鍵
+		int k2 = get_key(key_val[1]);				// 第二個按鍵模塊按下的鍵
 
-		if (is_pressed == 0 )
+		if (is_pressed == 0)					// 如果是可按下狀態
 		{
-			if (k1 > 0 || k2 == 7)					// Board_1 No.1 ~ 9 & Board_2 No.7 mean 0.
+			if (k1 > 0 || k2 == 7)				// 如果按下的是數字鍵 0 ~ 9. (第二個鍵盤的7號代表0)
 			{
-				is_pressed = 1;
-				if (op == 0)
-					step = 0;
-				else
-					step = 1;
+				is_pressed = 1;				// 變更為按下未放開狀態
+				if (op == 0)				// 如果未有運算符
+					step = 0;			// 正在輸入第一個數
+				else					// 如果已有運算符
+					step = 1;		        // 正在輸入第二個數
 
 				if (step == 0)
-					value_1 = value_1 * 10 + k1;
+					value_1 = value_1 * 10 + k1;	// 把原數放大10倍再加上剛剛按的數字
 				else if (step == 1)
 					value_2 = value_2 * 10 + k1;
 			}
-			else if (k2 >= 1 && k2 <= 4)			// Board_2 No.1 ~ 4 means +, -, *, /
+			else if (k2 >= 1 && k2 <= 4)			// 如果是按下運算符 (1: +, 2: -, 3: *, 4: /)
 			{
-				is_pressed = 1;
-				op = k2;
+				is_pressed = 1;				// 變更為按下未放開狀態
+				op = k2;				// 設置運算符
 
-				if (step == 2)
-					value_1 = ans;
+				if (step == 2)				// 如果已顯示結果，再按運算符
+					value_1 = ans;			// 把答案設為第一個數
 			}
-			else if (k2 == 5)						// Board_2 No.5 means =
+			else if (k2 == 5)				// 如果按下等於 (5: =)
 			{
-				is_pressed = 1;
-				step = 2;
+				is_pressed = 1;				// 變更為按下未放開狀態
+				step = 2;				// 變更為顯示結果狀態
 
-				if (op == 1)
+				if (op == 1)			        // 運算符 +
 					ans = value_1 + value_2;
-				else if (op == 2)
+				else if (op == 2)			// 運算符 -
 					ans = value_1 - value_2;
-				else if (op == 3)
+				else if (op == 3)			// 運算符 *
 					ans = value_1 * value_2;
-				else if (op == 3)
+				else if (op == 4)			// 運算符 /
 				{
-					if (value_2 == 0)
+					if (value_2 == 0)		// 如果除數為0, 則結果直接為0.
 						ans = 0;
-					else
+					else			        // 不為0才計算結果
 						ans = value_1 / value_2;
 				}
 
-				value_1 = 0;
+				value_1 = 0;				// 計算完重置
 				value_2 = 0;
 				op = 0;
 			}
 		}
 
-		// display
-		if (k1 == 0 && k2 == 0)
-			is_pressed = 0;
-
-		if (step == 2)
-			show_num(1, ans);
-		else
+		// 顯示
+		if (k1 == 0 && k2 == 0)				        // 如果兩個鍵盤都沒有按下
+			is_pressed = 0;					// 變更為可按下狀態
+		
+		if (step == 2)						// 如果是顯示結果狀態
+			show_num(1, ans);				// 顯示結果
+		else							// 否則
 		{
-			if (step == 0)
+			if (step == 0)					// 顯示第一個數字
 				show_num(1, value_1);
-			else if (step == 1)
+			else if (step == 1)				// 顯示第二個數字
 				show_num(1, value_2);
 		}
 	}
